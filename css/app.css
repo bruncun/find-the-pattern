@@ -1,0 +1,4 @@
+.btn.disabled {
+  opacity: 1;
+  cursor: default;
+}
