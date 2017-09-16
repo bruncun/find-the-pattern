@@ -2,3 +2,17 @@
   opacity: 1;
   cursor: default;
 }
+
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.col-xs-3 {
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+}
+
+.row {
+  margin-left: -7.5px;
+  margin-right: -7.5px;
+}
