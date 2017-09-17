@@ -1,41 +1,7 @@
 (function() {
   "use strict";
 
-  angular
-    .module("findThePattern", [])
-    .controller("MainController", MainController)
-    .directive("randomTile", randomTile)
-    .constant("icons", [
-      "glyphicon-leaf",
-      "glyphicon-fire",
-      "glyphicon-flash",
-      "glyphicon-tent",
-      "glyphicon-remove",
-      "glyphicon-plus"
-    ])
-    .constant("colors", [
-      "text-danger",
-      "text-success",
-      "text-info",
-      "text-muted",
-      "text-warning",
-      "text-primary"
-    ]);
-
-  function MainController() {
-    var vm = this;
-    vm.lives = 5;
-    vm.round = 1;
-    vm.tiles = [
-      {
-        type: "pattern"
-      },
-      {
-        type: "random"
-      },
-      null
-    ];
-  }
+  angular.module("findThePattern").directive("randomTile", randomTile);
 
   randomTile.$inject = ["$interval", "icons", "colors"];
 
