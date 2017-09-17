@@ -6,22 +6,27 @@
 </head>
 <body ng-controller="MainController as main">
   <div class="container">
-    <div class="page-header">
-      <h4>
-        Lives
-        <ul class="pull-right list-unstyled list-inline">
-          <li ng-repeat="live in [].constructor(main.lives) track by $index">
-            <span class="glyphicon glyphicon-heart text-danger"></span>
-          </li>
-        </ul>
-      </h4>
-    </div>
     <div class="row">
-      <div class="col-xs-3 form-group" ng-repeat="tile in main.tiles track by $index">
-        <button type="button" name="button" class="btn btn-default btn-block btn-lg" ng-class="{disabled: !tile}" ng-disabled="!tile">
-          <span ng-if="tile" class="glyphicon glyphicon-{{tile.icon}} {{tile.color}}"></span>
-          <span ng-if="!tile" class="glyphicon glyphicon-remove invisible"></span>
-        </button>
+      <div class="col-sm-offset-2 col-sm-8 col-md-offset-4 col-md-4">
+        <div class="page-header">
+          <h4>
+            Round {{main.round}}
+            <ul class="pull-right list-unstyled list-inline">
+              <li ng-repeat="live in [].constructor(main.lives) track by $index">
+                <span class="glyphicon glyphicon-heart text-danger"></span>
+              </li>
+            </ul>
+          </h4>
+        </div>
+        <div class="row">
+          <div class="col-xs-3 form-group" ng-repeat="tile in main.tiles track by $index">
+            <button type="button" name="button" class="btn btn-default btn-block btn-lg" ng-class="{disabled: !tile}" ng-disabled="!tile" ng-switch on="tile.type">
+              <random-tile ng-switch-when="random" class="glyphicon"></random-tile>
+              <span ng-switch-when="pattern" class="glyphicon glyphicon-fire"></span>
+              <span ng-switch-default class="glyphicon glyphicon-remove invisible"></span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
