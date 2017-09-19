@@ -3,14 +3,11 @@
 
   angular.module("findThePattern").directive("randomTile", randomTile);
 
-  randomTile.$inject = ["$interval", "icons", "colors"];
+  randomTile.$inject = ["$interval", "icons"];
 
-  function randomTile($interval, icons, colors) {
+  function randomTile($interval, icons) {
     function link(scope, element, attrs) {
-      var face = {
-        icon: "",
-        color: ""
-      };
+      var icon = "";
 
       function activate() {
         $interval(update, 1000);
@@ -18,34 +15,30 @@
         update();
       }
 
-      function getRandomFace() {
-        return {
-          icon: icons[Math.floor(Math.random() * icons.length)],
-          color: colors[Math.floor(Math.random() * icons.length)]
-        };
+      function getRandomIcon() {
+        return icons[Math.floor(Math.random() * icons.length)];
       }
 
-      function isFaceDifferent(newFace) {
-        return newFace.icon === face.icon || newFace.color === face.color;
+      function isIconDifferent(newIcon) {
+        return newIcon === icon;
       }
 
-      function replace(newFace) {
-        element.removeClass(face.icon + " " + face.color);
-        element.addClass(newFace.icon + " " + newFace.color);
+      function replace(newIcon) {
+        element.removeClass(icon);
+        element.addClass(newIcon);
 
-        face.icon = newFace.icon;
-        face.color = newFace.color;
+        icon = newIcon;
       }
 
       function update() {
-        var newFace = getRandomFace();
+        var newIcon = getRandomIcon();
 
-        if (isFaceDifferent(newFace)) {
+        if (isIconDifferent(newIcon)) {
           update();
           return;
         }
 
-        replace(newFace);
+        replace(newIcon);
       }
 
       activate();

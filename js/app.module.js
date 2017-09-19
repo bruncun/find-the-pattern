@@ -4,19 +4,11 @@
   angular
     .module("findThePattern", [])
     .constant("icons", [
-      "glyphicon-leaf",
-      "glyphicon-fire",
-      "glyphicon-flash",
-      "glyphicon-tent",
-      "glyphicon-remove",
-      "glyphicon-plus"
-    ])
-    .constant("colors", [
-      "text-danger",
-      "text-success",
-      "text-info",
-      "text-muted",
-      "text-warning",
-      "text-primary"
+      "glyphicon-leaf text-success",
+      "glyphicon-fire text-danger",
+      "glyphicon-flash text-warning",
+      "glyphicon-tent text-info",
+      "glyphicon-remove text-muted",
+      "glyphicon-plus text-primary"
     ]);
 })();
