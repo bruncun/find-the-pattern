@@ -3,18 +3,18 @@
 
   angular.module("findThePattern").controller("MainController", MainController);
 
-  function MainController() {
+  MainController.$inject = ["Tiles"];
+
+  function MainController(Tiles) {
     var vm = this;
     vm.lives = 5;
     vm.round = 1;
-    vm.tiles = [
-      {
-        type: "pattern"
-      },
-      {
-        type: "random"
-      },
-      null
-    ];
+    vm.tiles = [];
+
+    activate();
+
+    function activate() {
+      vm.tiles = Tiles.getTiles();
+    }
   }
 })();
