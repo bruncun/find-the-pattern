@@ -3,9 +3,9 @@
 
   angular.module("findThePattern").controller("MainController", MainController);
 
-  MainController.$inject = ["Tiles"];
+  MainController.$inject = ["tiles"];
 
-  function MainController(Tiles) {
+  function MainController(tiles) {
     var vm = this;
     vm.lives = 5;
     vm.round = 1;
@@ -14,7 +14,7 @@
     activate();
 
     function activate() {
-      vm.tiles = Tiles.getTiles();
+      vm.tiles = tiles;
     }
   }
 })();

@@ -10,5 +10,7 @@
       "glyphicon-tent text-info",
       "glyphicon-remove text-muted",
       "glyphicon-plus text-primary"
-    ]);
+    ])
+    .constant("tilesPerAxis", 4)
+    .constant("tilesPerRound", 2);
 })();

@@ -1,28 +1,52 @@
 (function() {
   "use strict";
 
-  angular.module("findThePattern").factory("Tiles", Tiles);
+  angular.module("findThePattern").factory("tiles", tiles);
 
-  Tiles.$inject = [];
+  tiles.$inject = ["tilesPerAxis", "tilesPerRound"];
 
   /* @ngInject */
-  function Tiles() {
-    var service = {
-      getTiles: getTiles
-    };
+  function tiles(tilesPerAxis, tilesPerRound) {
+    var tiles = new Array(Math.pow(tilesPerAxis, 2));
 
-    return service;
+    activate();
 
-    function getTiles() {
-      return [
-        {
-          type: "pattern"
-        },
-        {
+    return tiles;
+
+    function activate() {
+      addPatternTile();
+      addRandomTiles();
+    }
+
+    function addPatternTile() {
+      tiles[getRandomTileIndex()] = {
+        type: "pattern"
+      };
+    }
+
+    function addRandomTile() {
+      var index = getRandomTileIndex();
+
+      if (isTileEmpty(index)) {
+        tiles[index] = {
           type: "random"
-        },
-        null
-      ];
+        };
+        tilesPerRound--;
+      }
+    }
+
+    function addRandomTiles() {
+      while (tilesPerRound > 0) {
+        addRandomTile();
+      }
+    }
+
+    function getRandomTileIndex() {
+      return Math.floor(Math.random() * tiles.length);
+    }
+
+    function isTileEmpty(index) {
+      return typeof tiles[index] === "undefined";
     }
   }
 })();
