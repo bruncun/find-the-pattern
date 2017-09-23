@@ -19,18 +19,14 @@
     }
 
     function addPatternTile() {
-      tiles[getRandomTileIndex()] = {
-        type: "pattern"
-      };
+      tiles[getRandomTileIndex()] = "pattern";
     }
 
     function addRandomTile() {
       var index = getRandomTileIndex();
 
       if (isTileEmpty(index)) {
-        tiles[index] = {
-          type: "random"
-        };
+        tiles[index] = "random";
         tilesPerRound--;
       }
     }

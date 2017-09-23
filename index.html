@@ -20,7 +20,7 @@
         </div>
         <div class="row">
           <div class="col-xs-3 form-group" ng-repeat="tile in main.tiles track by $index">
-            <button type="button" name="button" class="btn btn-default btn-block btn-lg" ng-class="{disabled: !tile}" ng-disabled="!tile" ng-switch on="tile.type">
+            <button type="button" name="button" class="btn btn-default btn-block btn-lg" ng-class="{disabled: !tile}" ng-click="main.onTileClick($index)" ng-disabled="!tile" ng-switch on="tile">
               <random-tile ng-switch-when="random" class="glyphicon"></random-tile>
               <pattern-tile ng-switch-when="pattern" class="glyphicon"></pattern-tile>
               <span ng-switch-default class="glyphicon glyphicon-remove invisible"></span>
@@ -36,5 +36,6 @@
   <script src="js/random-tile.directive.js"></script>
   <script src="js/pattern-tile.directive.js"></script>
   <script src="js/tiles.service.js"></script>
+  <script src="js/judge.service.js"></script>
 </body>
 </html>
