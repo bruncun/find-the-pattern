@@ -1,38 +1,40 @@
 (function() {
-  "use strict";
+  'use strict';
 
-  angular.module("findThePattern").factory("tiles", tiles);
+  angular.module('findThePattern').factory('Tiles', Tiles);
 
-  tiles.$inject = ["tilesPerAxis", "tilesPerRound"];
+  Tiles.$inject = ['Rounds', 'tilesPerAxis', 'tilesPerRound'];
 
   /* @ngInject */
-  function tiles(tilesPerAxis, tilesPerRound) {
-    var tiles = new Array(Math.pow(tilesPerAxis, 2));
-
+  function Tiles(Rounds, tilesPerAxis, tilesPerRound) {
+    var tiles, currentTilesPerRound;
     activate();
 
-    return tiles;
+    return {
+      getTiles: getTiles,
+      tiles: tiles,
+      isPattern: isPattern
+    };
 
     function activate() {
-      addPatternTile();
-      addRandomTiles();
+      getTiles();
     }
 
     function addPatternTile() {
-      tiles[getRandomTileIndex()] = "pattern";
+      tiles[getRandomTileIndex()] = 'pattern';
     }
 
     function addRandomTile() {
       var index = getRandomTileIndex();
 
-      if (isTileEmpty(index)) {
-        tiles[index] = "random";
-        tilesPerRound--;
+      if (isEmpty(index)) {
+        tiles[index] = 'random';
+        currentTilesPerRound -= 1;
       }
     }
 
     function addRandomTiles() {
-      while (tilesPerRound > 0) {
+      while (currentTilesPerRound > 0) {
         addRandomTile();
       }
     }
@@ -41,8 +43,21 @@
       return Math.floor(Math.random() * tiles.length);
     }
 
-    function isTileEmpty(index) {
-      return typeof tiles[index] === "undefined";
+    function isEmpty(index) {
+      return typeof tiles[index] === 'undefined';
+    }
+
+    function isPattern(index) {
+      return tiles[index] === 'pattern';
+    }
+
+    function getTiles() {
+      tiles = new Array(Math.pow(tilesPerAxis, 2));
+      currentTilesPerRound = tilesPerRound[Rounds.round - 1];
+      addPatternTile();
+      addRandomTiles();
+
+      return tiles;
     }
   }
 })();

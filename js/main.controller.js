@@ -1,25 +1,87 @@
 (function() {
-  "use strict";
+  'use strict';
 
-  angular.module("findThePattern").controller("MainController", MainController);
+  angular.module('findThePattern').controller('MainController', MainController);
 
-  MainController.$inject = ["tiles", "Judge"];
+  MainController.$inject = [
+    '$uibModal',
+    'defeatModal',
+    'instructionsModal',
+    'Lives',
+    'roundCompletedModal',
+    'Rounds',
+    'tauntModal',
+    'Tiles',
+    'victoryModal'
+  ];
 
-  function MainController(tiles, Judge) {
+  function MainController(
+    $uibModal,
+    defeatModal,
+    instructionsModal,
+    Lives,
+    roundCompletedModal,
+    Rounds,
+    tauntModal,
+    Tiles,
+    victoryModal
+  ) {
     var vm = this;
-    vm.lives = 5;
-    vm.round = 1;
-    vm.tiles = [];
     vm.onTileClick = onTileClick;
 
     activate();
 
     function activate() {
-      vm.tiles = tiles;
+      vm.lives = Lives.lives;
+      vm.round = Rounds.round;
+      vm.tiles = Tiles.tiles;
+      instructions();
+    }
+
+    function completeRound() {
+      vm.round = Rounds.next();
+
+      vm.round ? nextRound() : victory();
+    }
+
+    function defeat() {
+      $uibModal.open(defeatModal);
+      startOver();
+    }
+
+    function instructions() {
+      $uibModal.open(instructionsModal);
+    }
+
+    function loseLife() {
+      vm.lives = Lives.lose();
+
+      vm.lives ? taunt() : defeat();
+    }
+
+    function nextRound() {
+      $uibModal.open(roundCompletedModal).closed.then(function() {
+        vm.tiles = Tiles.getTiles();
+      });
     }
 
     function onTileClick(index) {
-      Judge.decide(tiles[index]);
+      Tiles.isPattern(index) ? completeRound() : loseLife();
+    }
+
+    function startOver() {
+      vm.round = Rounds.reset();
+      vm.lives = Lives.reset();
+      vm.tiles = Tiles.getTiles();
+    }
+
+    function taunt() {
+      $uibModal.open(tauntModal);
+    }
+
+    function victory() {
+      $uibModal.open(victoryModal);
+      startOver();
     }
   }
 })();

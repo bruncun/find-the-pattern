@@ -30,12 +30,63 @@
       </div>
     </div>
   </div>
+  <script type="text/ng-template" id="roundCompleted.html">
+    <div class="modal-header text-center">
+      <h4 class="modal-title" id="modal-title">Nice Job!</h4>
+    </div>
+    <div class="modal-body text-center" id="modal-body">
+      <h1 class="text-success glyphicon glyphicon-ok"></h1>
+      <p>Next round starts in {{roundCompleted.timeRemaining}}...</p>
+    </div>
+  </script>
+  <script type="text/ng-template" id="defeat.html">
+    <div class="modal-header text-center">
+      <h4 class="modal-title" id="modal-title">Defeat!</h4>
+    </div>
+    <div class="modal-body text-center" id="modal-body">
+      <h1 class="text-danger glyphicon glyphicon-remove"></h1>
+      <p>Better luck next time.</p>
+      <button ng-click="defeat.close()" class="btn btn-primary">Play again</button>
+    </div>
+  </script>
+  <script type="text/ng-template" id="instructions.html">
+    <div class="modal-header text-center">
+      <h4 class="modal-title" id="modal-title">How to play</h4>
+    </div>
+    <div class="modal-body text-center" id="modal-body">
+      <p>In each round, find the one tile with a repeating sequence. You have three lives to survive four rounds.</p>
+      <button ng-click="instructions.close()" class="btn btn-primary">Start</button>
+    </div>
+  </script>
+  <script type="text/ng-template" id="taunt.html">
+    <div class="modal-header text-center">
+      <h4 class="modal-title" id="modal-title">Wrong!</h4>
+    </div>
+    <div class="modal-body text-center" id="modal-body">
+      <h1 class="text-warning glyphicon glyphicon-alert"></h1>
+      <p>Next life starts in {{taunt.timeRemaining}}...</p>
+    </div>
+  </script>
+  <script type="text/ng-template" id="victory.html">
+    <div class="modal-header text-center">
+      <h4 class="modal-title" id="modal-title">Victory!</h4>
+    </div>
+    <div class="modal-body text-center" id="modal-body">
+      <h1 class="text-warning glyphicon glyphicon-star"></h1>
+      <p>Thanks for playing.</p>
+      <button ng-click="victory.close()" class="btn btn-primary">Play again</button>
+    </div>
+  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
   <script src="js/app.module.js"></script>
   <script src="js/main.controller.js"></script>
+  <script src="js/timeout-modal.controller.js"></script>
+  <script src="js/dismissable-modal.controller.js"></script>
   <script src="js/random-tile.directive.js"></script>
   <script src="js/pattern-tile.directive.js"></script>
   <script src="js/tiles.service.js"></script>
-  <script src="js/judge.service.js"></script>
+  <script src="js/rounds.service.js"></script>
+  <script src="js/lives.service.js"></script>
 </body>
 </html>
