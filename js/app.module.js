@@ -3,6 +3,12 @@
 
   angular
     .module('findThePattern', ['ui.bootstrap'])
+    .config([
+      '$compileProvider',
+      function($compileProvider) {
+        $compileProvider.debugInfoEnabled(false);
+      }
+    ])
     .constant('defeatModal', {
       animation: false,
       ariaLabelledBy: 'modal-title',
