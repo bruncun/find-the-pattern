@@ -10,6 +10,9 @@
     var lives = startingLivesCount;
 
     return {
+      get lives() {
+        return lives;
+      },
       lose: lose,
       reset: reset
     };
