@@ -10,6 +10,7 @@
     'Lives',
     'roundCompletedModal',
     'Rounds',
+    'startingLivesCount',
     'tauntModal',
     'Tiles',
     'victoryModal'
@@ -22,6 +23,7 @@
     Lives,
     roundCompletedModal,
     Rounds,
+    startingLivesCount,
     tauntModal,
     Tiles,
     victoryModal
@@ -32,14 +34,14 @@
     activate();
 
     function activate() {
-      vm.lives = Lives.lives;
-      vm.round = Rounds.round;
-      vm.tiles = Tiles.tiles;
+      vm.lives = startingLivesCount;
+      vm.round = 1;
+      vm.tiles = Tiles.getTiles(vm.round);
       instructions();
     }
 
     function completeRound() {
-      vm.round = Rounds.next();
+      vm.round = Rounds.next(vm.round);
       vm.round ? nextRound() : victory();
     }
 
@@ -62,15 +64,15 @@
     }
 
     function onTileClick(index) {
-      Tiles.isPattern(index) ? completeRound() : loseLife();
+      Tiles.isPattern(vm.tiles, index) ? completeRound() : loseLife();
     }
 
     function setTiles() {
-      vm.tiles = Tiles.getTiles();
+      vm.tiles = Tiles.getTiles(vm.round);
     }
 
     function startOver() {
-      vm.round = Rounds.reset();
+      vm.round = 1;
       vm.lives = Lives.reset();
       setTiles();
     }

@@ -7,26 +7,16 @@
 
   /* @ngInject */
   function Lives(startingLivesCount) {
-    var lives = startingLivesCount;
-
     return {
-      get lives() {
-        return lives;
-      },
-      lose: lose,
-      reset: reset
+      lose: lose
     };
 
-    function isLivesRemaining() {
+    function isLivesRemaining(lives) {
       return lives > 1;
     }
 
-    function lose() {
-      return isLivesRemaining() ? (lives -= 1) : false;
-    }
-
-    function reset() {
-      return (lives = startingLivesCount);
+    function lose(lives) {
+      return isLivesRemaining(lives) ? (lives -= 1) : false;
     }
   }
 })();

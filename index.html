@@ -23,8 +23,8 @@
         <div class="row">
           <div class="col-xs-3 form-group" ng-repeat="tile in main.tiles track by $index">
             <button type="button" name="button" class="btn btn-default btn-block btn-lg" ng-class="{disabled: !tile}" ng-click="main.onTileClick($index)" ng-disabled="!tile" ng-switch on="tile">
-              <random-tile ng-switch-when="random" class="glyphicon"></random-tile>
-              <pattern-tile ng-switch-when="pattern" class="glyphicon"></pattern-tile>
+              <random-tile ng-switch-when="random"></random-tile>
+              <pattern-tile ng-switch-when="pattern"></pattern-tile>
               <span ng-switch-default class="glyphicon glyphicon-remove invisible"></span>
             </button>
           </div>

@@ -7,59 +7,58 @@
 
   /* @ngInject */
   function Tiles(Rounds, tilesPerAxis, tilesPerRound) {
-    var tiles, currentTilesPerRound;
-    activate();
-
     return {
       getTiles: getTiles,
-      tiles: tiles,
       isPattern: isPattern
     };
 
-    function activate() {
-      getTiles();
+    function addPatternTile(tiles) {
+      tiles[getRandomTileIndex(tiles)] = 'pattern';
+      return tiles;
     }
 
-    function addPatternTile() {
-      tiles[getRandomTileIndex()] = 'pattern';
-    }
-
-    function addRandomTile() {
-      var index = getRandomTileIndex();
-
-      if (isEmpty(index)) {
-        tiles[index] = 'random';
-        currentTilesPerRound -= 1;
+    function addRandomTile(tilesInProgress) {
+      var index = getRandomTileIndex(tilesInProgress.tiles);
+      if (isEmpty(tilesInProgress.tiles, index)) {
+        tilesInProgress.tiles[index] = 'random';
+        tilesInProgress.currentTilesPerRound -= 1;
       }
+      return tilesInProgress;
     }
 
-    function addRandomTiles() {
-      while (isTilesRemaining()) {
-        addRandomTile();
+    function addRandomTiles(tiles, currentTilesPerRound) {
+      var tilesInProgress = {
+        tiles: tiles,
+        currentTilesPerRound: currentTilesPerRound
+      };
+      while (isTilesRemaining(tilesInProgress.currentTilesPerRound)) {
+        tilesInProgress = addRandomTile(tilesInProgress);
       }
+
+      return tilesInProgress.tiles;
     }
 
-    function getRandomTileIndex() {
+    function getRandomTileIndex(tiles) {
       return Math.floor(Math.random() * tiles.length);
     }
 
-    function isEmpty(index) {
+    function isEmpty(tiles, index) {
       return typeof tiles[index] === 'undefined';
     }
 
-    function isPattern(index) {
+    function isPattern(tiles, index) {
       return tiles[index] === 'pattern';
     }
 
-    function isTilesRemaining() {
+    function isTilesRemaining(currentTilesPerRound) {
       return currentTilesPerRound > 0;
     }
 
-    function getTiles() {
-      tiles = new Array(Math.pow(tilesPerAxis, 2));
-      currentTilesPerRound = tilesPerRound[Rounds.round - 1];
-      addPatternTile();
-      addRandomTiles();
+    function getTiles(round) {
+      var tiles = new Array(Math.pow(tilesPerAxis, 2));
+      var currentTilesPerRound = tilesPerRound[round - 1];
+      tiles = addPatternTile(tiles);
+      tiles = addRandomTiles(tiles, currentTilesPerRound);
 
       return tiles;
     }

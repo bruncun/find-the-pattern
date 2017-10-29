@@ -1,14 +1,12 @@
 (function() {
-  "use strict";
+  'use strict';
 
-  angular.module("findThePattern").directive("randomTile", randomTile);
+  angular.module('findThePattern').directive('randomTile', randomTile);
 
-  randomTile.$inject = ["$interval", "icons"];
+  randomTile.$inject = ['$interval', 'icons'];
 
   function randomTile($interval, icons) {
     function link(scope, element, attrs) {
-      var icon = "";
-
       function activate() {
         $interval(update, 1000);
 
@@ -19,26 +17,19 @@
         return icons[Math.floor(Math.random() * icons.length)];
       }
 
-      function isIconDifferent(newIcon) {
-        return newIcon === icon;
+      function isNewIconSame(newIcon) {
+        return element.hasClass(newIcon);
       }
 
       function replace(newIcon) {
-        element.removeClass(icon);
+        element.attr('class', '');
         element.addClass(newIcon);
-
-        icon = newIcon;
       }
 
       function update() {
         var newIcon = getRandomIcon();
 
-        if (isIconDifferent(newIcon)) {
-          update();
-          return;
-        }
-
-        replace(newIcon);
+        isNewIconSame(newIcon) ? update() : replace(newIcon);
       }
 
       activate();

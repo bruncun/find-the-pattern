@@ -7,42 +7,40 @@
 
   function patternTile($interval, icons) {
     function link(scope, element, attrs) {
-      var icon = '';
-      var pattern = new Array(icons.length);
       var index = 0;
 
       function activate() {
-        $interval(update, 1000);
+        var pattern = getPattern();
 
-        getPattern();
-        update();
+        update(pattern);
+        $interval(update, 1000, 0, true, pattern);
       }
 
       function getPattern() {
-        pattern = icons;
-        for (var i = icons.length - 1; i > 0; i--) {
+        var pattern = icons;
+        for (var i = pattern.length - 1; i > 0; i--) {
           var j = Math.floor(Math.random() * (i + 1));
-          var temp = icons[i];
-          icons[i] = icons[j];
-          icons[j] = temp;
+          var temp = pattern[i];
+          pattern[i] = pattern[j];
+          pattern[j] = temp;
         }
+
+        return pattern;
       }
 
-      function isPatternOver() {
+      function isPatternOver(pattern) {
         return index < pattern.length - 1;
       }
 
       function replace(newIcon) {
-        element.removeClass(icon);
+        element.attr('class', '');
         element.addClass(newIcon);
-
-        icon = newIcon;
       }
 
-      function update() {
+      function update(pattern) {
         replace(pattern[index]);
 
-        isPatternOver() ? (index += 1) : (index = 0);
+        isPatternOver(pattern) ? (index += 1) : (index = 0);
       }
 
       activate();

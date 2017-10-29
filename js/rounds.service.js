@@ -7,26 +7,16 @@
 
   /* @ngInject */
   function Rounds(tilesPerRound) {
-    var round = 1;
-
     return {
-      next: next,
-      reset: reset,
-      get round() {
-        return round;
-      }
+      next: next
     };
 
-    function isRoundsRemaining() {
+    function isRoundsRemaining(round) {
       return round < tilesPerRound.length;
     }
 
-    function next() {
-      return isRoundsRemaining() ? (round += 1) : false;
-    }
-
-    function reset() {
-      return (round = 1);
+    function next(round) {
+      return isRoundsRemaining(round) ? (round += 1) : false;
     }
   }
 })();

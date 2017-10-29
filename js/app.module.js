@@ -21,12 +21,12 @@
       templateUrl: 'defeat.html'
     })
     .constant('icons', [
-      'glyphicon-leaf text-success',
-      'glyphicon-fire text-danger',
-      'glyphicon-flash text-warning',
-      'glyphicon-tent text-info',
-      'glyphicon-remove text-muted',
-      'glyphicon-plus text-primary'
+      'glyphicon glyphicon-leaf text-success',
+      'glyphicon glyphicon-fire text-danger',
+      'glyphicon glyphicon-flash text-warning',
+      'glyphicon glyphicon-tent text-info',
+      'glyphicon glyphicon-remove text-muted',
+      'glyphicon glyphicon-plus text-primary'
     ])
     .constant('instructionsModal', {
       animation: false,
