@@ -3,10 +3,6 @@
   cursor: default;
 }
 
-.btn-default:focus {
-  background-color: #fff;
-}
-
 .mb-30 {
   margin-bottom: 30px;
 }
