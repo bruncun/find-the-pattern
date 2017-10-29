@@ -34,7 +34,7 @@
     }
 
     function addRandomTiles() {
-      while (currentTilesPerRound > 0) {
+      while (isTilesRemaining()) {
         addRandomTile();
       }
     }
@@ -49,6 +49,10 @@
 
     function isPattern(index) {
       return tiles[index] === 'pattern';
+    }
+
+    function isTilesRemaining() {
+      return currentTilesPerRound > 0;
     }
 
     function getTiles() {

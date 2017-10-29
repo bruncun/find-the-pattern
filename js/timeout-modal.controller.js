@@ -16,21 +16,19 @@
     activate();
 
     function activate() {
-      if (vm.timeRemaining) {
-        countdownTimer = $interval(countdown, 1000);
-      }
+      countdownTimer = $interval(countdown, 1000);
+    }
+
+    function closeTimeoutModal() {
+      $uibModalInstance.close();
+      $interval.cancel(countdownTimer);
     }
 
     function countdown() {
-      if (isTimeRemaining()) {
-        $uibModalInstance.close();
-        $interval.cancel(countdownTimer);
-      } else {
-        vm.timeRemaining--;
-      }
+      isTimeUp() ? closeTimeoutModal() : (vm.timeRemaining -= 1);
     }
 
-    function isTimeRemaining() {
+    function isTimeUp() {
       return vm.timeRemaining === 1;
     }
   }

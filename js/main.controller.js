@@ -40,7 +40,6 @@
 
     function completeRound() {
       vm.round = Rounds.next();
-
       vm.round ? nextRound() : victory();
     }
 
@@ -55,24 +54,25 @@
 
     function loseLife() {
       vm.lives = Lives.lose();
-
       vm.lives ? taunt() : defeat();
     }
 
     function nextRound() {
-      $uibModal.open(roundCompletedModal).closed.then(function() {
-        vm.tiles = Tiles.getTiles();
-      });
+      $uibModal.open(roundCompletedModal).closed.then(setTiles);
     }
 
     function onTileClick(index) {
       Tiles.isPattern(index) ? completeRound() : loseLife();
     }
 
+    function setTiles() {
+      vm.tiles = Tiles.getTiles();
+    }
+
     function startOver() {
       vm.round = Rounds.reset();
       vm.lives = Lives.reset();
-      vm.tiles = Tiles.getTiles();
+      setTiles();
     }
 
     function taunt() {

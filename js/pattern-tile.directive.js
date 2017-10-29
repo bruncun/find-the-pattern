@@ -1,13 +1,13 @@
 (function() {
-  "use strict";
+  'use strict';
 
-  angular.module("findThePattern").directive("patternTile", patternTile);
+  angular.module('findThePattern').directive('patternTile', patternTile);
 
-  patternTile.$inject = ["$interval", "icons"];
+  patternTile.$inject = ['$interval', 'icons'];
 
   function patternTile($interval, icons) {
     function link(scope, element, attrs) {
-      var icon = "";
+      var icon = '';
       var pattern = new Array(icons.length);
       var index = 0;
 
@@ -28,6 +28,10 @@
         }
       }
 
+      function isPatternOver() {
+        return index < pattern.length - 1;
+      }
+
       function replace(newIcon) {
         element.removeClass(icon);
         element.addClass(newIcon);
@@ -38,11 +42,7 @@
       function update() {
         replace(pattern[index]);
 
-        if (index < pattern.length - 1) {
-          index++;
-        } else {
-          index = 0;
-        }
+        isPatternOver() ? (index += 1) : (index = 0);
       }
 
       activate();
